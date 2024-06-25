@@ -159,15 +159,30 @@ function handleOperatorInput(op) {
   operator = op;
 
   if (currentOperator) {
-    secondNum = Number(displayValue.split(`${currentOperator}`)[1])
+    console.log(currentOperator);
+    secondNum = displayValue.split(`${currentOperator}`)[1]
       ? Number(displayValue.split(`${currentOperator}`)[1])
-      : currentOperator === "*" || currentOperator === "/"
-      ? 1
-      : 0;
+      : null;
 
-    result = Number.isInteger(operate(operator, firstNum, secondNum))
-      ? operate(operator, firstNum, secondNum)
-      : Math.round(operate(operator, firstNum, secondNum) * 100) / 100;
+    console.log(secondNum);
+    if (secondNum === null) {
+      if (
+        operator === "*" ||
+        operator === "/" ||
+        operator === "×" ||
+        operator === "÷"
+      ) {
+        secondNum = 1;
+      } else {
+        secondNum = 0;
+      }
+      result = operate(operator, firstNum, secondNum);
+    } else {
+      result = Number.isInteger(operate(currentOperator, firstNum, secondNum))
+        ? operate(operator, firstNum, secondNum)
+        : Math.round(operate(currentOperator, firstNum, secondNum) * 100) / 100;
+    }
+    console.log(typeof result);
 
     if (String(result).length > 10) {
       result = Number(result).toExponential(2);
@@ -176,6 +191,7 @@ function handleOperatorInput(op) {
     firstNum = result;
 
     displayValue = result;
+    console.log(displayValue);
   }
 
   if (firstNum === null) {
