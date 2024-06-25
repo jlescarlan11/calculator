@@ -88,13 +88,14 @@ function handleDecimalInput() {
 
 function handleClearInput() {
   displayValue = "0";
-  updateDisplay();
 
   clickedDecimal = false;
-  let firstNum = null;
-  let operator = null;
-  let secondNum = null;
-  let currentOperator = null;
+  firstNum = null;
+  operator = null;
+  secondNum = null;
+  currentOperator = null;
+
+  updateDisplay();
 }
 
 function handleBackspaceInput() {
