@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(34, 40, 49);
+  height: 100dvh;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calculator {
+  width: 275px;
+  padding: 10px;
+  margin: 0 auto;
+  color: rgb(238, 238, 238);
+  background-color: rgba(49, 54, 63, 0.7);
+  border: 1px solid rgba(238, 238, 238, 0.1);
+  align-content: center;
+}
+
+.calculator-container {
+  width: 250px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+h2 {
+  padding: 4px 0;
+}
+
+.display-container {
+  border: 1px solid rgba(238, 238, 238, 0.2);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 2rem;
+  overflow: hidden;
+  padding: 0 4px;
+}
+
+.brand {
+  text-align: center;
+}
+.display,
+.buttons {
+  text-align: center;
+  align-items: stretch;
+  border: 1px solid rgba(238, 238, 238, 0.2);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.buttons button {
+  height: 50px;
+  /* width: 90px; */
+  flex: 1 1 25%;
+  font-weight: bold;
+  background-color: rgba(235, 244, 246, 0.489);
+  /* border: 1px solid rgba(8, 130, 149, 0.9); */
+}
+
+.buttons #zero {
+  flex-basis: 75%;
+}
+
+.buttons .equals {
+  background-color: rgba(118, 171, 174, 0.3);
+}
+.buttons .operators,
+.buttons .decimal,
+.buttons .backspace,
+.buttons .clear {
+  background-color: rgba(118, 171, 174, 0.6);
+}
