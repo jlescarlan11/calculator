@@ -70,6 +70,7 @@ function handleDecimalInput() {
 
   updateDisplay();
   clickedDecimal = true;
+  clickedEqual = false;
 }
 
 function handleClearInput() {
@@ -204,9 +205,13 @@ function operate(operator, firstNum, secondNum) {
       return add(firstNum, secondNum);
     case "-":
       return subtract(firstNum, secondNum);
-    case "×":
+    case "+":
       return multiply(firstNum, secondNum);
     case "÷":
+      return divide(firstNum, secondNum);
+    case "*":
+      return multiply(firstNum, secondNum);
+    case "/":
       return divide(firstNum, secondNum);
   }
 }
