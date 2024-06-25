@@ -65,11 +65,9 @@ h2 {
 
 .buttons button {
   height: 50px;
-  /* width: 90px; */
   flex: 1 1 25%;
   font-weight: bold;
   background-color: rgba(235, 244, 246, 0.489);
-  /* border: 1px solid rgba(8, 130, 149, 0.9); */
 }
 
 .buttons #zero {
