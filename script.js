@@ -34,6 +34,8 @@ function isValidKey(key) {
     "+",
     "-",
     "*",
+    "×",
+    "÷",
     "/",
     "=",
     "Delete",
@@ -45,13 +47,24 @@ function isValidKey(key) {
 
 function handleKeyboardInput(event) {
   event.preventDefault();
-  const key = event.key;
+  let key = event.key;
 
   if (isValidKey(key)) {
-    if (key === "+" || key === "-" || key === "*" || key === "/") {
+    if (
+      key === "+" ||
+      key === "-" ||
+      key === "*" ||
+      key === "/" ||
+      key === "×" ||
+      key === "÷"
+    ) {
+      if (key === "*") {
+        key = "×";
+      } else if (key === "/") {
+        key = "÷";
+      }
       handleOperatorInput(key);
     } else if (key === "Enter" || key === "=") {
-      console.log();
       handleEqualInput();
     } else if (key === "Backspace") {
       handleBackspaceInput();
@@ -85,15 +98,10 @@ function handleClearInput() {
 }
 
 function handleBackspaceInput() {
-  displayValue = displayValue.slice(0, -1);
-  firstNum = Number(displayValue.split(`${operator}`)[0]);
-  secondNum = Number(
-    displayValue.split(`${operator}`)[1]
-      ? Number(displayValue.split(`${operator}`)[1])
-      : "0"
-  );
+  displayValue = String(displayValue).slice(0, -1);
 
   updateDisplay();
+  clickedEqual = false;
 }
 
 function handleNumberInput(num) {
@@ -109,7 +117,6 @@ function handleNumberInput(num) {
 
 function handleEqualInput() {
   secondNum = Number(displayValue.split(`${operator}`)[1]);
-  // displayValue.join("");
 
   if (operator === null) {
     result = displayValue;
@@ -148,7 +155,6 @@ operatorButton.forEach((button) => {
 
 function handleOperatorInput(op) {
   clickedEqual = false;
-  console.log(op);
   operator = op;
 
   if (currentOperator) {
@@ -213,6 +219,8 @@ function operate(operator, firstNum, secondNum) {
       return multiply(firstNum, secondNum);
     case "/":
       return divide(firstNum, secondNum);
+    case "×":
+      return multiply(firstNum, secondNum);
   }
 }
 
