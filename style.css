@@ -14,13 +14,13 @@ body {
 }
 
 .calculator {
-  width: 290px;
-  padding: 20px;
+  width: 280px;
+  padding: 15px;
   margin: 0 auto;
   color: rgb(238, 238, 238);
   background-color: rgba(49, 54, 63, 0.7);
   border: 1px solid rgba(238, 238, 238, 0.1);
-  border-radius: 16px;
+  border-radius: 10px;
   align-content: center;
 }
 
