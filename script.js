@@ -38,6 +38,7 @@ function isValidKey(key) {
     "÷",
     "/",
     "=",
+    ".",
     "Delete",
     "Enter",
     "Backspace",
