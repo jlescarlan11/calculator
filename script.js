@@ -6,6 +6,7 @@ let result = null;
 let secondNumActive = false;
 let clickedDecimal = false;
 let clickedEqual = false;
+let clickedOperator = false;
 
 let display = document.querySelector(".display-container");
 let numberButtons = document.querySelectorAll(".numbers");
@@ -80,11 +81,17 @@ function handleKeyboardInput(event) {
 }
 
 function handleDecimalInput() {
-  if (clickedDecimal === false) displayValue += decimalButton.textContent;
-
+  if (clickedDecimal === false) {
+    if (!Number.isInteger(Number(displayValue.slice(-1)))) {
+      displayValue += `0${decimalButton.textContent}`;
+    } else {
+      displayValue += decimalButton.textContent;
+    }
+  }
   updateDisplay();
   clickedDecimal = true;
   clickedEqual = false;
+  clickedOperator = false;
 }
 
 function handleClearInput() {
@@ -95,6 +102,7 @@ function handleClearInput() {
   operator = null;
   secondNum = null;
   currentOperator = null;
+  clickedOperator = false;
 
   updateDisplay();
 }
@@ -104,6 +112,7 @@ function handleBackspaceInput() {
 
   updateDisplay();
   clickedEqual = false;
+  clickedOperator = false;
 }
 
 function handleNumberInput(num) {
@@ -115,38 +124,42 @@ function handleNumberInput(num) {
   updateDisplay();
 
   clickedEqual = false;
+  clickedOperator = false;
 }
 
 function handleEqualInput() {
-  secondNum = Number(displayValue.split(`${operator}`)[1]);
+  if (!clickedOperator) {
+    secondNum = Number(displayValue.split(`${operator}`)[1]);
 
-  if (operator === null) {
-    result = displayValue;
-  } else {
-    result = Number.isInteger(operate(operator, firstNum, secondNum))
-      ? operate(operator, firstNum, secondNum)
-      : Math.round(operate(operator, firstNum, secondNum) * 100) / 100;
+    if (operator === null) {
+      result = displayValue;
+    } else {
+      result = Number.isInteger(operate(operator, firstNum, secondNum))
+        ? operate(operator, firstNum, secondNum)
+        : Math.round(operate(operator, firstNum, secondNum) * 100) / 100;
+    }
+
+    if (String(result).length > 10) {
+      result = Number(result).toExponential(2);
+    }
+
+    displayValue = result;
+    firstNum = null;
+    secondNum = null;
+    currentOperator = null;
+
+    updateDisplay();
+
+    displayValue = Number(displayValue) ? displayValue : "0";
+    if (!Number.isInteger(result)) {
+      clickedDecimal = true;
+    } else {
+      clickedDecimal = false;
+    }
+
+    clickedEqual = true;
+    clickedOperator = false;
   }
-
-  if (String(result).length > 10) {
-    result = Number(result).toExponential(2);
-  }
-
-  displayValue = result;
-  firstNum = null;
-  secondNum = null;
-  currentOperator = null;
-
-  updateDisplay();
-
-  displayValue = Number(displayValue) ? displayValue : "0";
-  if (!Number.isInteger(result)) {
-    clickedDecimal = true;
-  } else {
-    clickedDecimal = false;
-  }
-
-  clickedEqual = true;
 }
 
 operatorButton.forEach((button) => {
@@ -156,16 +169,15 @@ operatorButton.forEach((button) => {
 });
 
 function handleOperatorInput(op) {
+  clickedOperator = true;
   clickedEqual = false;
   operator = op;
 
   if (currentOperator) {
-    console.log(currentOperator);
     secondNum = displayValue.split(`${currentOperator}`)[1]
       ? Number(displayValue.split(`${currentOperator}`)[1])
       : null;
 
-    console.log(secondNum);
     if (secondNum === null) {
       if (
         operator === "*" ||
@@ -183,7 +195,6 @@ function handleOperatorInput(op) {
         ? operate(operator, firstNum, secondNum)
         : Math.round(operate(currentOperator, firstNum, secondNum) * 100) / 100;
     }
-    console.log(typeof result);
 
     if (String(result).length > 10) {
       result = Number(result).toExponential(2);
@@ -192,7 +203,6 @@ function handleOperatorInput(op) {
     firstNum = result;
 
     displayValue = result;
-    console.log(displayValue);
   }
 
   if (firstNum === null) {
